@@ -14,10 +14,8 @@
 
 void	*ft_memalloc(size_t size)
 {
-	unsigned int	i;
 	void			*fresh;
 
-	i = 0;
 	fresh = malloc(size);
 	if (fresh == 0)
 		return (fresh);
