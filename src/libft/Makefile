@@ -29,7 +29,8 @@ SRC = ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
 	  ft_utf8charsize.c ft_wcharbits.c ft_wcharsize_utf8.c ft_wctomb.c \
 	  ft_wstrsize_utf8.c ft_wstrnsize_utf8.c ft_utf8strnencode.c \
 	  ft_wstrlen.c ft_wstrcpy.c ft_wchar_memset.c ft_wstrdup.c \
-	  ft_wstrndup.c ft_itoa_base_ull.c ft_ishex.c
+	  ft_wstrndup.c ft_itoa_base_ull.c ft_ishex.c ft_lst_append.c ft_lst_len.c \
+	  ft_lst_free_contents.c
 
 OPT = $(SRC:.c=.o)
 HEADER = ./libft.h
