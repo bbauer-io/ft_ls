@@ -6,7 +6,7 @@
 /*   By: bbauer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 16:26:23 by bbauer            #+#    #+#             */
-/*   Updated: 2017/03/09 19:38:49 by bbauer           ###   ########.fr       */
+/*   Updated: 2017/03/09 21:52:27 by bbauer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@
 # include <uuid/uuid.h>
 # include <grp.h>
 
+# define SIX_MONTHS 15552000
+
 typedef struct		s_opt
 {
 	t_bool			l;
@@ -64,5 +66,6 @@ void		lst_sort(t_list *start, int (*f)(t_file *, t_file *, int),
 int			cmp_chrono(t_file *p1, t_file *p2, int reverse_order);
 int			cmp_alpha(t_file *p1, t_file *p2, int reverse_order);
 t_list		*open_directory(t_list *parent, t_list *file_list, t_opt *opts);
+void		print_w_stats(t_file *file, t_file *parent, t_opt *opts, int *info);
 
 #endif

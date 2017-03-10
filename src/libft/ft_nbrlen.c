@@ -6,7 +6,7 @@
 /*   By: bbauer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 15:24:38 by bbauer            #+#    #+#             */
-/*   Updated: 2017/03/09 09:57:30 by bbauer           ###   ########.fr       */
+/*   Updated: 2017/03/09 21:58:23 by bbauer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 ** NOTE: Accounts for a '-' with negative numbers.
 */
 
-size_t			ft_nbrlen(int nbr)
+size_t		ft_nbrlen(int nbr)
 {
-	size_t		len;
+	int			len;
 	int			is_negative;
 
 	is_negative = nbr < 0 ? 1 : 0;

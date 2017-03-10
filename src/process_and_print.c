@@ -6,7 +6,7 @@
 /*   By: bbauer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 13:46:02 by bbauer            #+#    #+#             */
-/*   Updated: 2017/03/09 21:14:46 by bbauer           ###   ########.fr       */
+/*   Updated: 2017/03/09 22:04:54 by bbauer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ static void		print_blocks_total(t_list *file_list)
 static void		print_dir_contents(t_list *parent, t_list *file_list,
 																t_opt *opts)
 {
-	t_list		*entries;
-	t_list		*tmp_entries;
-	int			info[7];
+	t_list			*entries;
+	t_list			*tmp_entries;
+	int				info[7];
 
 	if (!(entries = open_directory(parent, file_list, opts)))
 		return ;
@@ -121,8 +121,8 @@ static void		process_dir_contents(t_list *file_list, t_opt *opts,
 
 void			process_arguments(t_list *file_list, t_opt *opts, int list_len)
 {
-	t_list		*prev;
-	int			info[7];
+	t_list			*prev;
+	int				info[7];
 
 	prev = NULL;
 	calc_col_widths_get_dev_info(file_list, info);
