@@ -6,7 +6,7 @@
 /*   By: bbauer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 17:10:33 by bbauer            #+#    #+#             */
-/*   Updated: 2017/03/09 19:24:47 by bbauer           ###   ########.fr       */
+/*   Updated: 2017/03/09 22:43:01 by bbauer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static t_opt		*read_options(int ac, char **av)
 	t_opt		*opts;
 
 	opts = ft_memalloc(sizeof(t_opt));
-	i = 1;
-	while (i++ < ac)
+	i = 0;
+	while (++i < ac)
 	{
 		j = 0;
 		while (av[i][0] == '-' && av[i][j++] != '\0')
@@ -64,9 +64,9 @@ static t_list		*populate_from_valid_args(int ac, char **av, int *good_args)
 		if (av[i][0] != '-' && !file_is_accessible(av[i]))
 		{
 			ft_printf("ft_ls: %s: %s", av[i], strerror(errno));
-			//(*good_args)++
+			(*good_args)++;
 		}
-		else
+		else if (ft_strchr(&av[i][0], '-') == 0 && !ft_strequ(av[i], "./ft_ls"))
 		{
 			tmp->name = ft_strdup(av[i]);
 			lstat(tmp->name, &(tmp->stats));

@@ -6,7 +6,7 @@
 /*   By: bbauer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 13:46:02 by bbauer            #+#    #+#             */
-/*   Updated: 2017/03/09 22:04:54 by bbauer           ###   ########.fr       */
+/*   Updated: 2017/03/09 22:52:54 by bbauer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void		print_blocks_total(t_list *file_list)
 
 	total = 0;
 	if (file_list)
-		blksize = ((t_file *)file_list->content)->stats.st_blksize;
+		blksize = ((t_file *)file_list->content)->stats.st_blksize / 1024;
 	while (file_list)
 	{
 		total += ((t_file *)file_list->content)->stats.st_blocks;
@@ -48,7 +48,7 @@ static void		print_dir_contents(t_list *parent, t_list *file_list,
 {
 	t_list			*entries;
 	t_list			*tmp_entries;
-	int				info[7];
+	unsigned int	info[7];
 
 	if (!(entries = open_directory(parent, file_list, opts)))
 		return ;
@@ -61,7 +61,7 @@ static void		print_dir_contents(t_list *parent, t_list *file_list,
 	{
 		if (opts->l)
 			print_w_stats((t_file *)entries->content,
-							((t_file *)file_list->content), opts, info);
+							((t_file *)file_list->content), info);
 		else
 			ft_printf("%s\n", ((t_file *)entries->content)->name);
 		entries = entries->next;
@@ -122,7 +122,7 @@ static void		process_dir_contents(t_list *file_list, t_opt *opts,
 void			process_arguments(t_list *file_list, t_opt *opts, int list_len)
 {
 	t_list			*prev;
-	int				info[7];
+	unsigned int	info[7];
 
 	prev = NULL;
 	calc_col_widths_get_dev_info(file_list, info);
@@ -133,7 +133,7 @@ void			process_arguments(t_list *file_list, t_opt *opts, int list_len)
 		else
 		{
 			if (opts->l)
-				print_w_stats((t_file *)file_list->content, NULL, opts, info);
+				print_w_stats((t_file *)file_list->content, NULL, info);
 			else
 				ft_printf("%s\n", ((t_file *)file_list->content)->name);
 		}

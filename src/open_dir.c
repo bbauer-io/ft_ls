@@ -6,7 +6,7 @@
 /*   By: bbauer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 19:25:46 by bbauer            #+#    #+#             */
-/*   Updated: 2017/03/09 21:17:53 by bbauer           ###   ########.fr       */
+/*   Updated: 2017/03/09 22:24:00 by bbauer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static t_list	*modify_folder_name(t_list *parent, t_list *file_list)
 	char			*parent_name;
 	char			*file_name;
 
+	parent_folder = NULL;
 	if (parent)										 // will there ever not be a parent name?
 		parent_name = ft_strdup(((t_file *)parent->content)->name);
 	file_name = ft_strdup(((t_file *)file_list->content)->name);
@@ -58,7 +59,7 @@ static t_list	*read_directory(DIR *directory, t_list *file_list, t_opt *opts)
 	entries = NULL;
 	current = (t_file *)ft_memalloc(sizeof(t_file));
 	file = readdir(directory);
-	while (file_list)
+	while (file)
 	{
 		if (opts->a || file->d_name[0] != '.')
 		{

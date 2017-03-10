@@ -6,7 +6,7 @@
 /*   By: bbauer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 11:09:34 by bbauer            #+#    #+#             */
-/*   Updated: 2017/03/09 22:04:13 by bbauer           ###   ########.fr       */
+/*   Updated: 2017/03/09 22:44:32 by bbauer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_bool		file_is_accessible(char *filename)
 ** which would indicate the the file is in face a device.
 */
 
-void		calc_col_widths_get_dev_info(t_list *file_list, int *w)
+void		calc_col_widths_get_dev_info(t_list *file_list, unsigned int *w)
 {
 	t_file		*tmp;
 

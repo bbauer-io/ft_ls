@@ -6,11 +6,10 @@
 /*   By: bbauer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/15 14:33:06 by bbauer            #+#    #+#             */
-/*   Updated: 2016/11/15 14:33:31 by bbauer           ###   ########.fr       */
+/*   Updated: 2017/03/09 22:12:39 by bbauer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "libft.h"
 
 t_list	*ft_lstnew(void const *content, size_t content_size)

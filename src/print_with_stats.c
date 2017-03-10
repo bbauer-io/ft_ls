@@ -6,7 +6,7 @@
 /*   By: bbauer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 19:26:13 by bbauer            #+#    #+#             */
-/*   Updated: 2017/03/09 22:01:24 by bbauer           ###   ########.fr       */
+/*   Updated: 2017/03/09 22:10:10 by bbauer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ static void	print_time(time_t mod_time)
 }
 
 
-void		print_w_stats(t_file *file, t_file *parent, t_opt *opts, int *info)
+void		print_w_stats(t_file *file, t_file *parent, unsigned int *info)
 {
 	print_filetype(file->stats.st_mode);
 	ft_printf(" %*d ", info[0], file->stats.st_nlink);
