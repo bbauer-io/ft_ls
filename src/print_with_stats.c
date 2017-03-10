@@ -12,6 +12,10 @@
 
 #include "../includes/ft_ls.h"
 
+/*
+** Prints the file permissions based on the values sotred in 
+*/
+
 static void	print_permissions(mode_t mode)
 {
 	ft_putchar((mode & S_IRUSR) ? 'r' : '-');
@@ -34,6 +38,10 @@ static void	print_permissions(mode_t mode)
 		ft_putchar((mode & S_IXOTH) ? 'x' : '-');
 }
 
+/*
+**
+*/
+
 static void	print_filetype(mode_t mode)
 {
 	if ((mode & S_IFMT) == S_IFREG)
@@ -47,8 +55,7 @@ static void	print_filetype(mode_t mode)
 	else if ((mode & S_IFMT) == S_IFBLK)
 		ft_putchar('b');
 	else if ((mode & S_IFMT) == S_IFSOCK)
-		ft_putchar('s');
-	else if ((mode & S_IFMT) == S_IFIFO)
+		ft_putchar('s');	else if ((mode & S_IFMT) == S_IFIFO)
 		ft_putchar('f');
 	print_permissions(mode);
 }
@@ -107,30 +114,30 @@ static void	print_time(time_t mod_time)
 }
 
 
-void		print_w_stats(t_file *file, t_file *parent, unsigned int *info)
+void		print_w_stats(t_file *file, t_file *parent, unsigned int *i)
 {
 	print_filetype(file->stats.st_mode);
-	ft_printf(" %*d ", info[0], file->stats.st_nlink);
+	ft_printf(" %*d ", i[0], file->stats.st_nlink);
 	if (getpwuid(file->stats.st_uid))
-		ft_printf(info[6] ? "%-*s " : "%*s ", info[1],
+		ft_printf(i[6] ? "%-*s " : "%*s ", i[1],
 						getpwuid(file->stats.st_uid)->pw_name);
 	else
-		ft_printf(info[6] ? "%-*s " : "%*s ", info[1], ft_itoa(file->stats.st_uid));
+		ft_printf(i[6] ? "%-*s " : "%*s ", i[1], ft_itoa(file->stats.st_uid));
 	if (getgrgid(file->stats.st_gid))
-		ft_printf(info[6] ? "%-*s " : " %*s ", info[2],
+		ft_printf(i[6] ? "%-*s " : " %*s ", i[2],
 						getgrgid(file->stats.st_gid)->gr_name);
 	else
-		ft_printf(info[6] ? "%-*s " : " %*s ", info[2], ft_itoa(file->stats.st_uid));
-	if (info[6])
+		ft_printf(i[6] ? "%-*s " : " %*s ", i[2], ft_itoa(file->stats.st_uid));
+	if (i[6])
 	{
 		if ((file->stats.st_mode & S_IFMT) == S_IFLNK)
-			ft_printf("  %*s ", info[4], "");
+			ft_printf("  %*s ", i[4], "");
 		else
-			ft_printf("  %*d,", info[4], file->stats.st_rdev >> 24);
-		ft_printf(" %*d ", info[5], file->stats.st_rdev & 0xFFFFFFF);
+			ft_printf("  %*d,", i[4], file->stats.st_rdev >> 24);
+		ft_printf(" %*d ", i[5], file->stats.st_rdev & 0xFFFFFF);
 	}
 	else
-		ft_printf(" %*lld ", info[3], file->stats.st_size);
+		ft_printf(" %*lld ", i[3], file->stats.st_size);
 	print_time(file->stats.st_mtime);
 	print_name_or_link(file, parent, file->stats.st_mode);
 }

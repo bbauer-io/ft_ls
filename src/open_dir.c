@@ -24,7 +24,7 @@ static t_list	*modify_folder_name(t_list *parent, t_list *file_list)
 	char			*file_name;
 
 	parent_folder = NULL;
-	if (parent)										 // will there ever not be a parent name?
+	if (parent)
 		parent_name = ft_strdup(((t_file *)parent->content)->name);
 	file_name = ft_strdup(((t_file *)file_list->content)->name);
 	if (parent && (!ft_strequ(parent_name, file_name)))
@@ -35,7 +35,7 @@ static t_list	*modify_folder_name(t_list *parent, t_list *file_list)
 	else
 		file_name = ft_strjoin(file_name, "/");
 	if (parent && !ft_strequ("./", file_name))
-		ft_printf("\n%.*s:\n", ft_strlen(file_name) - 1, file_name); // WHY MINUS ONE!?!?!?
+		ft_printf("\n%.*s:\n", ft_strlen(file_name) - 1, file_name);
 	free(((t_file *)file_list->content)->name);
 	((t_file *)file_list->content)->name = file_name;
 	if (parent)

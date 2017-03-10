@@ -54,7 +54,7 @@ void		calc_col_widths_get_dev_info(t_list *file_list, unsigned int *w)
 			w[2] = MAX(ft_strlen(getgrgid(tmp->stats.st_gid)->gr_name), w[2]);
 		else
 			w[2] = MAX(ft_strlen(ft_itoa(tmp->stats.st_gid)), w[2]);
-		w[3] = MAX(ft_nbrlen(tmp->stats.st_size), w[3]); // I think I can use this without nbrlen
+		w[3] = MAX(ft_nbrlen(tmp->stats.st_size), w[3]);
 		w[4] = MAX(ft_nbrlen(tmp->stats.st_rdev >> 24), w[4]);
 		w[5] = MAX(ft_nbrlen(tmp->stats.st_rdev & 0xFFFFFF), w[5]);
 		w[6] = (((tmp->stats.st_mode & S_IFMT) == S_IFBLK) ||
