@@ -6,7 +6,7 @@
 /*   By: bbauer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 11:53:06 by bbauer            #+#    #+#             */
-/*   Updated: 2017/03/02 13:50:23 by bbauer           ###   ########.fr       */
+/*   Updated: 2017/03/09 10:48:14 by bbauer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@
 # include <wchar.h>
 
 # define BUFF_SIZE 1024
+# define MAX(A, B) (((A) > (B)) ? (A) : (B))
+# define MIN(A, B) (((A) < (B)) ? (A) : (B))
+# define ABS(A) ((A)<0 ? -(A) : (A))
+# define ARRAY_SIZE(A) (sizeof(A) / sizeof(*A))
+# define COMPARE(A, B) (((A) > (B)) - ((A) < (B)))
 
 typedef struct		s_list
 {

@@ -6,7 +6,7 @@
 /*   By: bbauer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 17:10:33 by bbauer            #+#    #+#             */
-/*   Updated: 2017/03/07 17:53:48 by bbauer           ###   ########.fr       */
+/*   Updated: 2017/03/09 17:52:39 by bbauer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 /*
 ** Scans all arguments beginning with '-' for options a, l, r ,R, t and returns
-** a struct with the saved results.
+** a struct with the saved results. Specifying a bad option results in the
+** program exiting.
 */
 
 static t_opt		*read_options(int ac, char **av)
@@ -42,7 +43,13 @@ static t_opt		*read_options(int ac, char **av)
 	return (opts);
 }
 
-static t_list		*create_valid_arg_list(int ac, char **av, int *good_args)
+/*
+** Reads the arguments provided by the user, tests that they are valid files
+** and/or directories, then adds each to a new list that it creates. The list
+** contains the file or directory name, and the results of a call to lstat().
+*/
+
+static t_list		*populate_from_valid_args(int ac, char **av, int *good_args)
 {
 	int			i;
 	t_list		*file_list;
@@ -55,8 +62,8 @@ static t_list		*create_valid_arg_list(int ac, char **av, int *good_args)
 	{
 		if (av[i][0] != '-' && !file_is_accessible(av[i]))
 		{
-			ft_printf("ft_ls: %s: ", av[i]);
-			perror("");
+			ft_printf("ft_ls: %s: %s", av[i], strerror(errno));
+			//(*good_args)++
 		}
 		else
 		{
@@ -70,7 +77,13 @@ static t_list		*create_valid_arg_list(int ac, char **av, int *good_args)
 	return (file_list);
 }
 
-static t_list		*scan_dirs(int ac, char **av, t_opt *opts)
+/*
+** Creates the list of files or directories to be listed from each argument.
+** If no args are present, it creates a single list item for the current dir.
+** The list is then sorted based on the flags that are set.
+*/
+
+static t_list		*scan_dirs(int argc, char **argv, t_opt *opts)
 {
 	t_list		*file_list;
 	t_file		*tmp;
@@ -78,7 +91,7 @@ static t_list		*scan_dirs(int ac, char **av, t_opt *opts)
 
 	good_args = 0;
 	tmp = (t_file *)ft_memalloc(sizeof(t_file));
-	file_list = create_valid_arg_list(ac, av, &good_args);
+	file_list = populate_from_valid_args(argc, argv, &good_args);
 	if (good_args == 0 && !ft_lst_len(file_list))
 	{
 		tmp->name = ft_strdup(".");
@@ -89,8 +102,11 @@ static t_list		*scan_dirs(int ac, char **av, t_opt *opts)
 		lst_sort(file_list, (opts->t ? &cmp_chrono : &cmp_alpha), opts->r);
 	free(tmp);
 	return (file_list);
-
 }
+
+/*
+** ENTRY POINT OF FT_LS
+*/
 
 int				main(int argc, char **argv)
 {
@@ -101,9 +117,7 @@ int				main(int argc, char **argv)
 	opts = read_options(argc, argv);
 	file_list = scan_dirs(argc, argv, opts);
 	list_length = ft_lst_len(file_list);
-
-	print_list(file_list, opts, list_length);
-
+	process_arguments(file_list, opts, list_length);
 	ft_lstdel(&file_list, &ft_lst_free_contents);
 	free(opts);
 	return (0);

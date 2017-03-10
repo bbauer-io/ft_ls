@@ -1,22 +1,52 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sorting.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bbauer <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/03/09 11:10:25 by bbauer            #+#    #+#             */
+/*   Updated: 2017/03/09 11:22:39 by bbauer           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
+
+/*
+** Returns 1 if p1 would come before p2 alphabetically.
+** The order can be reversed with the reverse_order option.
+*/
 
 int				cmp_alpha(t_file *p1, t_file *p2, int reverse_order)
 {
 	int			cmp_result;
+	char		*tmp1;
+	char		*tmp2;
 
-	cmp_result = (ft_strcmp(p1->name, p2->name));
+	tmp1 = ft_tolower_str(ft_strdup(p1->name));
+	tmp2 = ft_tolower_str(ft_strdup(p2->name));
+	cmp_result = (ft_strcmp(tmp1, tmp2));
+	free(tmp1);
+	free(tmp2);
 	if (reverse_order)
 		return (cmp_result < 0 ? 1 : 0);
 	else
 		return (cmp_result > 0 ? 1 : 0);
 }
 
+/*
+** Returns 1 if the p1's modification time older than p2's modification time.
+** That can be reversed with the reverse_order option.
+** Comparison is done to the nanosecond if seconds are the same, then
+** alphabetically if there is still no difference.
+*/
+
 int				cmp_chrono(t_file *p1, t_file *p2, int reverse_order)
 {
 	if (p1->stats.st_mtimespec.tv_sec == p2->stats.st_mtimespec.tv_sec)
 	{
 		if (p1->stats.st_mtimespec.tv_nsec == p2->stats.st_mtimespec.tv_nsec)
-			return (cmp_lex(p1, p2, reverse_order));
+			return (cmp_alpha(p1, p2, reverse_order));
 		if (reverse_order)
 			return (p1->stats.st_mtimespec.tv_nsec
 				> p2->stats.st_mtimespec.tv_nsec);
