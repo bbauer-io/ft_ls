@@ -6,7 +6,7 @@
 /*   By: bbauer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 11:10:25 by bbauer            #+#    #+#             */
-/*   Updated: 2017/03/09 11:22:39 by bbauer           ###   ########.fr       */
+/*   Updated: 2017/03/09 17:57:58 by bbauer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,11 @@ static void		lst_content_swap(t_list *one, t_list *two)
 	one->content = two->content;
 	two->content = tmp;
 }
+
+/*
+** lst_sort() uses the return value of the function passed to it to sort a list.
+** I have included functions for alphabetical and chronological sorting.
+*/
 
 void			lst_sort(t_list *start, int (*f)(t_file *, t_file *, int),
 															int reverse_order)

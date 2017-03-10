@@ -6,26 +6,42 @@
 /*   By: bbauer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 13:46:02 by bbauer            #+#    #+#             */
-/*   Updated: 2017/03/09 17:52:24 by bbauer           ###   ########.fr       */
+/*   Updated: 2017/03/09 21:14:46 by bbauer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
 
+/*
+** Prints the total number of blocks used by all files in the directory, just
+** like the name says. I added a feature that grabs the blocksize and Prints
+** that as well, which adds a little meaning to the number.
+*/
+
 static void		print_blocks_total(t_list *file_list)
 {
-	blkcnt_t		total;
-	struct stat		stbuf;
+	blkcnt_t	total;
+	int			blksize;
+
 
 	total = 0;
+	if (file_list)
+		blksize = ((t_file *)file_list->content)->stats.st_blksize;
 	while (file_list)
 	{
 		total += ((t_file *)file_list->content)->stats.st_blocks;
 		file_list = file_list->next;
 	}
-	stat("/", &stbuf);
-	ft_printf("total %zu blocks (%ukb blocksize)\n", total, stbuf.st_blksize);
+	ft_printf("total %zu blocks (%ukb blocksize)\n", total, blksize);
 }
+
+/*
+** Prints the total number of blocks used by all files in the directory, then
+** proceeds to open the directory and read its contents, creating a list with
+** the results and each file's lstat() call results. The list is sorted and
+** THE REST OF THE FUNCTION LOOKS EXACTLY LIKE process_arguments() !! - perhaps
+** that funciton is reusable instead of explore_all_subdirectories()...
+*/
 
 static void		print_dir_contents(t_list *parent, t_list *file_list,
 																t_opt *opts)
@@ -34,7 +50,7 @@ static void		print_dir_contents(t_list *parent, t_list *file_list,
 	t_list		*tmp_entries;
 	int			info[7];
 
-	if (!(entries = open_dir(parent, file_list, opts)))
+	if (!(entries = open_directory(parent, file_list, opts)))
 		return ;
 	if (opts->l)
 		print_blocks_total(entries);
@@ -53,10 +69,15 @@ static void		print_dir_contents(t_list *parent, t_list *file_list,
 	}
 	entries = tmp_entries;
 	if (opts->up_r)
-		explore_subdirectories(entries, file_list, opts);
+		explore_all_subdirectories(entries, file_list, opts);
 }
 
-void			explore_subdirectories(t_list *entries, t_list *file_list,
+/*
+** This function calls it's parent function for each directory found inside the
+** present directory, causing all subdirectories to be explored recursively.
+*/
+
+void			explore_all_subdirectories(t_list *entries, t_list *file_list,
 																t_opt *opts)
 {
 	while (entries)
@@ -65,9 +86,15 @@ void			explore_subdirectories(t_list *entries, t_list *file_list,
 				!ft_strequ(((t_file *)entries->content)->name, ".") &&
 				!ft_strequ(((t_file *)entries->content)->name, ".."))
 			print_dir_contents(file_list, entries, opts);
+		entries = entries->next;
 	}
 	ft_lstdel(&entries, ft_lst_free_contents);
 }
+
+/*
+** Prints a newline (if this is not the first directory listed) and the name of
+** the directory before calling a function to print the directory's contents.
+*/
 
 static void		process_dir_contents(t_list *file_list, t_opt *opts,
 												t_list *prev, int list_len)
@@ -83,7 +110,13 @@ static void		process_dir_contents(t_list *file_list, t_opt *opts,
 }
 
 /*
-** Takes the list 
+** Takes the list of arguments/files and their stats, then compares the strlen()
+** of each field in in the stats struct that will be printed in order to
+** determine the field width when printing. If any of the arguments specified
+** are directories, a function will be called to explore and list the contents.
+** If -l was specified, a function will be called to write details about each
+** file. Otherwise (-l not specified and is a file) the filenames will each be
+** printed.
 */
 
 void			process_arguments(t_list *file_list, t_opt *opts, int list_len)

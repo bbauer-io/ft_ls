@@ -1,14 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_ls.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbauer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 17:10:33 by bbauer            #+#    #+#             */
-/*   Updated: 2017/03/09 17:52:39 by bbauer           ###   ########.fr       */
+/*   Updated: 2017/03/09 19:24:47 by bbauer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../includes/ft_ls.h"
 
@@ -79,11 +80,13 @@ static t_list		*populate_from_valid_args(int ac, char **av, int *good_args)
 
 /*
 ** Creates the list of files or directories to be listed from each argument.
+** The list includes a call to lstat() for each argument to populate the  stats
+** structs with data.
 ** If no args are present, it creates a single list item for the current dir.
 ** The list is then sorted based on the flags that are set.
 */
 
-static t_list		*scan_dirs(int argc, char **argv, t_opt *opts)
+static t_list		*init_list_from_args(int argc, char **argv, t_opt *opts)
 {
 	t_list		*file_list;
 	t_file		*tmp;
@@ -115,7 +118,7 @@ int				main(int argc, char **argv)
 	int			list_length;
 
 	opts = read_options(argc, argv);
-	file_list = scan_dirs(argc, argv, opts);
+	file_list = init_list_from_args(argc, argv, opts);
 	list_length = ft_lst_len(file_list);
 	process_arguments(file_list, opts, list_length);
 	ft_lstdel(&file_list, &ft_lst_free_contents);
