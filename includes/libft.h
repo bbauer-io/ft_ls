@@ -6,7 +6,7 @@
 /*   By: bbauer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 11:53:06 by bbauer            #+#    #+#             */
-/*   Updated: 2017/03/09 21:58:41 by bbauer           ###   ########.fr       */
+/*   Updated: 2017/03/10 17:35:16 by bbauer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ char				*ft_toupper_str(char *str);
 char				*ft_tolower_str(char *str);
 char				*ft_itoa_base(int value, int base);
 size_t				ft_nbrlen(int nbr);
-int					get_next_line(int const fd, char **line);
 void				*ft_realloc(void *ptr, size_t size_original,
 						size_t size_add);
 int					ft_atoi(char const *str);

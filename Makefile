@@ -6,7 +6,7 @@
 #    By: bbauer <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/10 16:26:20 by bbauer            #+#    #+#              #
-#    Updated: 2017/03/10 17:15:36 by bbauer           ###   ########.fr        #
+#    Updated: 2017/03/10 17:34:39 by bbauer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,10 +17,6 @@ FLAGS =				-Wall -Werror -Wextra
 FT_LS_SRC_DIR = 	./src/
 FT_SRC_DIR =		./src/libft
 PRINTF_SRC_DIR =	./src/ft_printf
-
-FT_LS_OBJ_DIR =		./obj
-FT_OBJ_DIR =		./obj/libft
-PRINTF_OBJ_DIR =	./obj/ft_print
 
 INCLUDES_DIR =		./includes
 
@@ -112,9 +108,7 @@ LIBFT_COMPILED = ft_atoi.o \
 				 ft_wstrlen.o \
 				 ft_wstrndup.o \
 				 ft_wstrnsize_utf8.o \
-				 ft_wstrsize_utf8.o \
-				 get_next_line.o
-
+				 ft_wstrsize_utf8.o
 
 FT_PRINTF_COMPILED = apply_precision.o \
 					 apply_prefix.o \
@@ -153,10 +147,6 @@ all: $(NAME)
 
 $(NAME): $(COMPILED)
 	@gcc $(FLAGS) -o $(NAME) $(COMPILED)
-	@mkdir -p obj/ft_printf obj/ft_ls obj/libft
-	@mv $(LIBFT_COMPILED) ./obj/libft
-	@mv $(FT_LS_COMPILED) ./obj/$(NAME)
-	@mv $(FT_PRINTF_COMPILED) ./obj/ft_printf
 	@echo "made" $(NAME)
 
 $(FT_LS_COMPILED): %.o: $(FT_LS_SRC_DIR)/%.c
@@ -170,7 +160,6 @@ $(FT_PRINTF_COMPILED): %.o: $(PRINTF_SRC_DIR)/%.c
 
 clean:
 	@-/bin/rm -f $(COMPILED)
-	@-/bin/rm -rf $(FT_LS_OBJ_DIR)
 	@echo "cleaned" $(NAME)
 
 fclean: clean
