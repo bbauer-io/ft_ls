@@ -6,10 +6,9 @@
 /*   By: bbauer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 17:10:33 by bbauer            #+#    #+#             */
-/*   Updated: 2017/03/09 22:43:01 by bbauer           ###   ########.fr       */
+/*   Updated: 2017/03/10 17:17:15 by bbauer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../includes/ft_ls.h"
 
@@ -111,7 +110,7 @@ static t_list		*init_list_from_args(int argc, char **argv, t_opt *opts)
 ** ENTRY POINT OF FT_LS
 */
 
-int				main(int argc, char **argv)
+int					main(int argc, char **argv)
 {
 	t_opt		*opts;
 	t_list		*file_list;

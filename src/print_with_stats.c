@@ -6,17 +6,17 @@
 /*   By: bbauer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 19:26:13 by bbauer            #+#    #+#             */
-/*   Updated: 2017/03/09 22:10:10 by bbauer           ###   ########.fr       */
+/*   Updated: 2017/03/10 17:21:35 by bbauer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
 
 /*
-** Prints the file permissions based on the values sotred in 
+** Prints the file permissions based on the values sotred in stats.st_mode
 */
 
-static void	print_permissions(mode_t mode)
+static void		print_permissions(mode_t mode)
 {
 	ft_putchar((mode & S_IRUSR) ? 'r' : '-');
 	ft_putchar((mode & S_IWUSR) ? 'w' : '-');
@@ -39,10 +39,10 @@ static void	print_permissions(mode_t mode)
 }
 
 /*
-**
+** Prints the filetype! 'd' for dir, etc...
 */
 
-static void	print_filetype(mode_t mode)
+static void		print_filetype(mode_t mode)
 {
 	if ((mode & S_IFMT) == S_IFREG)
 		ft_putchar('-');
@@ -55,14 +55,15 @@ static void	print_filetype(mode_t mode)
 	else if ((mode & S_IFMT) == S_IFBLK)
 		ft_putchar('b');
 	else if ((mode & S_IFMT) == S_IFSOCK)
-		ft_putchar('s');	else if ((mode & S_IFMT) == S_IFIFO)
+		ft_putchar('s');
+	else if ((mode & S_IFMT) == S_IFIFO)
 		ft_putchar('f');
 	print_permissions(mode);
 }
 
-static void	print_name_or_link(t_file *file, t_file *parent, mode_t mode)
+static void		print_name_or_link(t_file *file, t_file *parent, mode_t mode)
 {
-	char		link_buf[10024];
+	char		link_buf[1024];
 	ssize_t		count;
 	char		*path;
 
@@ -88,7 +89,7 @@ static void	print_name_or_link(t_file *file, t_file *parent, mode_t mode)
 		ft_printf(" %s\n", file->name);
 }
 
-static void	print_time(time_t mod_time)
+static void		print_time(time_t mod_time)
 {
 	char	*str;
 	char	*end;
@@ -113,8 +114,7 @@ static void	print_time(time_t mod_time)
 	ft_putstr(start);
 }
 
-
-void		print_w_stats(t_file *file, t_file *parent, unsigned int *i)
+void			print_w_stats(t_file *file, t_file *parent, unsigned int *i)
 {
 	print_filetype(file->stats.st_mode);
 	ft_printf(" %*d ", i[0], file->stats.st_nlink);

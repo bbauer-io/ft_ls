@@ -6,7 +6,7 @@
 /*   By: bbauer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 11:09:34 by bbauer            #+#    #+#             */
-/*   Updated: 2017/03/09 22:44:32 by bbauer           ###   ########.fr       */
+/*   Updated: 2017/03/10 17:23:01 by bbauer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void		calc_col_widths_get_dev_info(t_list *file_list, unsigned int *w)
 		if (getpwuid(tmp->stats.st_uid))
 			w[1] = MAX(ft_strlen(getpwuid(tmp->stats.st_uid)->pw_name), w[1]);
 		else
-			 w[1] = MAX(ft_strlen(ft_itoa(tmp->stats.st_uid)), w[1]);
+			w[1] = MAX(ft_strlen(ft_itoa(tmp->stats.st_uid)), w[1]);
 		if (getgrgid(tmp->stats.st_gid))
 			w[2] = MAX(ft_strlen(getgrgid(tmp->stats.st_gid)->gr_name), w[2]);
 		else

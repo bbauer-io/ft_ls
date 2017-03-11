@@ -6,7 +6,7 @@
 /*   By: bbauer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 13:46:02 by bbauer            #+#    #+#             */
-/*   Updated: 2017/03/09 22:52:54 by bbauer           ###   ########.fr       */
+/*   Updated: 2017/03/10 17:18:01 by bbauer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static void		print_blocks_total(t_list *file_list)
 {
 	blkcnt_t	total;
 	int			blksize;
-
 
 	total = 0;
 	if (file_list)
@@ -65,7 +64,6 @@ static void		print_dir_contents(t_list *parent, t_list *file_list,
 		else
 			ft_printf("%s\n", ((t_file *)entries->content)->name);
 		entries = entries->next;
-		
 	}
 	entries = tmp_entries;
 	if (opts->up_r)
